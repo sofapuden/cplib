@@ -1,8 +1,47 @@
-#pragma once
+#include<bits/stdc++.h>
+#include<bits/extc++.h>
 
-#include <cplib/various/fastmod.h>
+using namespace std;
+using namespace __gnu_pbds;
 
-// :-)
+#define all(x) (x).begin(), (x).end()
+#define rall(x) (x).rbegin(), (x).rend()
+
+typedef long long ll;
+typedef long double ld;
+
+template <typename A, typename B = less<A>> using ordered_set = tree<A, null_type, B, rb_tree_tag, tree_order_statistics_node_update>;
+template <typename A, typename B, typename C = less<A>> using ordered_map = tree<A, B, C, rb_tree_tag, tree_order_statistics_node_update>;
+
+void prep();
+void solve(const int curt);
+
+const int dx4[4] = {0, 0, 1, -1}, dy4[4] = {1, -1, 0, 0};
+const int dx8[8] = {0, 0, 1, 1, 1, -1, -1, -1}, dy8[8] = {1, -1, 1, 0, -1, 1, 0, -1};
+const bool isT = false;
+
+int main(){
+	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+
+	prep();
+
+	int t = 1; if(isT){ cin >> t; }
+	for(int i = 1; i <= t; ++i)solve(i);
+}
+
+
+
+struct FastMod{
+	long long b, m;
+	FastMod(long long _b) : b(_b), m(-1ULL / b) {}
+	ll reduce(long long a) { 
+		if(a < b && a >= 0)return a;
+		a = a - (unsigned long long)((__uint128_t(m) * a) >> 64) * b;
+		if(a >= b) a -= b;
+		return a;
+	}
+};
+
 
 FastMod mod(1000000007);
 //FastMod mod(998244353);
@@ -86,3 +125,19 @@ struct Mint {
 		return s;
 	}
 };
+
+
+void prep(){
+
+}
+
+void solve(const int curt){
+	int n; cin >> n;
+	Mint val = 1;
+	for(int i = 0; i < n; ++i){
+		int x; cin >> x;
+		val+=x;
+	}
+	cout << val << '\n';
+}
+

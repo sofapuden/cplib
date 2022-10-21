@@ -29,9 +29,7 @@ int main(){
 	for(int i = 1; i <= t; ++i)solve(i);
 }
 
-#include<cplib/debug/debug.h>
 #include<cplib/various/mint.h>
-#include<cplib/various/fastmod.h>
 
 // :-)
 
@@ -40,5 +38,11 @@ void prep(){
 }
 
 void solve(const int curt){
-
+	int n; cin >> n;
+	Mint val = 1;
+	for(int i = 0; i < n; ++i){
+		int x; cin >> x;
+		val+=x;
+	}
+	cout << val << '\n';
 }

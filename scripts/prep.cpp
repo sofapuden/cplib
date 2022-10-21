@@ -52,7 +52,7 @@ void prepare_start(string file){
 		getline(in_file, s);
 		if(s == "// :-)")return;
 		if(has_prefix(s,"#include")){
-			if(has_suffix(file, ".cpp") && (s == "#include<bits/stdc++.h>" || s == "#include<bits/extc++.h>")){
+			if(has_suffix(file, ".cpp") && has_prefix(remove_include(s),"bits")){
 				outcpp << s << '\n';
 				continue;
 			}

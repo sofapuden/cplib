@@ -9,6 +9,12 @@ FastMod <1000000007> mod;
 
 constexpr const bool pri_mod = true;
 
+template<template <int> typename T, int N>
+constexpr int extr(const T<N>&) { return N; }
+
+constexpr const int phi_mod_val = pri_mod ? extr(mod) - 1 : phi(extr(mod));
+FastMod <phi_mod_val> phi_mod;
+
 template <typename A> A inverse(A a, A b) {
 	a %= b;
 	if(!a) {
@@ -29,20 +35,22 @@ struct Mint {
 	Mint operator -() const { return Mint(-val); }
 	Mint &operator += (const Mint &o) {
 		val += o.val;
-		if(val >= static_cast<int>(mod.b))val -= mod.b;
+		if(val >= extr(mod))val -= extr(mod);
 		return *this;
 	}
 	Mint &operator -= (const Mint &o) {
 		val -= o.val;
-		if(val < 0)val += mod.b;
+		if(val < 0)val += extr(mod);
 		return *this;
 	}
 	Mint &operator *= (const Mint &o) {
-		val = mod.reduce(static_cast<long long>(val) * static_cast<long long>(o.val));
+		val = mod.reduce(val * o.val);
 		return *this;
 	}
 	friend Mint pow(Mint a, long long p) {
-		if constexpr(pri_mod){ p = mod.reduce(p); }
+		if(p >= phi_mod_val || p < 0)phi_mod.reduce(p);
+		p -= (p >= phi_mod_val) * phi_mod_val;
+		p += (p < 0) * phi_mod_val;
 		Mint ret = 1;
 		while(p) {
 			if(p & 1)ret *= a;
@@ -52,8 +60,8 @@ struct Mint {
 		return ret;
 	}
 	friend Mint inv(const Mint& a) {
-		if constexpr(pri_mod) return pow(a, mod.b - 2);
-		return inverse(static_cast<int>(a.val), static_cast<int>(mod.b));
+		if constexpr(pri_mod) return pow(a, extr(mod) - 2);
+		return inverse(static_cast<int>(a.val), extr(mod));
 	}
 	Mint &operator /= (const Mint &o) {
 		(*this) *= inv(o);

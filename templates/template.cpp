@@ -1,5 +1,6 @@
 #include<bits/stdc++.h>
-#include<bits/extc++.h>
+#include<ext/pb_ds/assoc_container.hpp> 
+#include<ext/pb_ds/tree_policy.hpp> 
 
 using namespace std;
 using namespace __gnu_pbds;
@@ -18,7 +19,7 @@ void solve(const int curt);
 
 const int dx4[4] = {0, 0, 1, -1}, dy4[4] = {1, -1, 0, 0};
 const int dx8[8] = {0, 0, 1, 1, 1, -1, -1, -1}, dy8[8] = {1, -1, 1, 0, -1, 1, 0, -1};
-const bool isT = false;
+const bool isT = true;
 
 int main(){
 	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);

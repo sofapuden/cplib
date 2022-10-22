@@ -30,7 +30,6 @@ int main(){
 }
 
 #include<cplib/various/mint.h>
-
 // :-)
 
 void prep(){
@@ -38,11 +37,6 @@ void prep(){
 }
 
 void solve(const int curt){
-	int n; cin >> n;
-	Mint val = 1;
-	for(int i = 0; i < n; ++i){
-		int x; cin >> x;
-		val+=x;
-	}
-	cout << val << '\n';
+
+
 }

@@ -42,7 +42,7 @@ struct Mint {
 		return *this;
 	}
 	friend Mint pow(Mint a, long long p) {
-		if(p < 0)return inv(pow(a, -p));
+		if constexpr(pri_mod){ p = mod.reducephi(p); }
 		Mint ret = 1;
 		while(p) {
 			if(p & 1)ret *= a;

@@ -32,8 +32,6 @@ int main(){
 
 template <int MOD> struct FastMod{
     static constexpr const long long m = -1ULL / MOD;
-    static constexpr const long long MODPHI = MOD - 1;
-    static constexpr const long long mphi = -1ULL / MODPHI;
     static constexpr const long long b = MOD;
     ll reduce(long long a) { 
         if(a < MOD && a >= 0)return a;
@@ -43,21 +41,13 @@ template <int MOD> struct FastMod{
         return a;
         //return a % b;
     }
-    ll reducephi(long long a) { 
-        if(a < MODPHI && a >= 0)return a;
-        a = a - static_cast <unsigned long long> ((__uint128_t(mphi) * a) >> 64) * MODPHI;
-	a += MODPHI * (a < 0);
-	a -= MODPHI * (a >= MODPHI);
-        return a;
-        //return a % b;
-    }
 };
 
 
-FastMod <1000000007> mod;
+FastMod <123456> mod;
 //FastMod <998244353> mod;
 
-constexpr const bool pri_mod = true;
+constexpr const bool pri_mod = false;
 
 template <typename A> A inverse(A a, A b) {
 	a %= b;
@@ -92,7 +82,7 @@ struct Mint {
 		return *this;
 	}
 	friend Mint pow(Mint a, long long p) {
-		if constexpr(pri_mod){ p = mod.reducephi(p); }
+		if constexpr(pri_mod){ p = mod.reduce(p); }
 		Mint ret = 1;
 		while(p) {
 			if(p & 1)ret *= a;

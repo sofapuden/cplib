@@ -31,20 +31,21 @@ int main(){
 
 
 
-struct FastMod{
-	long long b, m;
-	FastMod(long long _b) : b(_b), m(-1ULL / b) {}
-	ll reduce(long long a) { 
-		if(a < b && a >= 0)return a;
-		a = a - (unsigned long long)((__uint128_t(m) * a) >> 64) * b;
-		if(a >= b) a -= b;
-		return a;
-	}
+template <int MOD> struct FastMod{
+    static constexpr const long long m = -1ULL / MOD;
+    static constexpr const long long b = MOD;
+    ll reduce(long long a) { 
+        if(a < MOD && a >= 0)return a;
+        a = a - static_cast <unsigned long long> ((__uint128_t(m) * a) >> 64) * MOD;
+        if(a >= MOD) a -= MOD;
+        return a;
+        //return a % b;
+    }
 };
 
 
-FastMod mod(1000000007);
-//FastMod mod(998244353);
+FastMod <1000000007> mod;
+//FastMod <998244353> mod;
 
 constexpr const bool pri_mod = true;
 
@@ -58,9 +59,9 @@ template <typename A> A inverse(A a, A b) {
 }
 
 struct Mint {
-	int val;
+	long long val;
 	explicit operator int() const { return val; }
-	Mint(int _val = 0) : val(mod.reduce(_val)) {}
+	Mint(long long _val = 0) : val(mod.reduce(_val)) {}
 	template <typename B = int> Mint(const B& _val) : val(mod.reduce((long long)_val)) {}
 	friend bool operator == (const Mint &a, const Mint &b) { return a.val == b.val; }
 	friend bool operator != (const Mint &a, const Mint &b) { return !(a == b); }
@@ -84,7 +85,7 @@ struct Mint {
 		if(p < 0)return inv(pow(a, -p));
 		Mint ret = 1;
 		while(p) {
-			if(p & 1ll)ret *= a;
+			if(p & 1)ret *= a;
 			p >>= 1;
 			a *= a;
 		}
@@ -117,7 +118,9 @@ struct Mint {
 		return a /= b;
 	}
 	friend istream& operator >> (istream& s, Mint& a) {
-		s >> a.val;
+		long long value;
+		s >> value;
+		a.val = mod.reuce(value);
 		return s;
 	}
 	friend ostream& operator << (ostream& s, const Mint& a) {

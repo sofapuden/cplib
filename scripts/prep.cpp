@@ -52,11 +52,11 @@ void prepare_start(string file){
 		getline(in_file, s);
 		if(s == "// :-)")return;
 		if(has_prefix(s,"#include")){
-			if(has_suffix(file, ".cpp") && has_prefix(remove_include(s),"bits")){
+			if(has_suffix(file, ".cpp") && (has_prefix(remove_include(s),"bits") || has_prefix(remove_include(s), "ext"))){
 				outcpp << s << '\n';
 				continue;
 			}
-			if(has_prefix(remove_include(s),"bits")){
+			if(has_prefix(remove_include(s),"bits") || has_prefix(remove_include(s), "ext")){
 				continue;
 			}
 			to_prepare_start.push(remove_include(s));

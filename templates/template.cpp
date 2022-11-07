@@ -26,7 +26,7 @@ int main(){
 
 	prep();
 
-	int t = 1; if(isT){ cin >> t; }
+	int t = 1; if(isT)cin >> t;
 	for(int i = 1; i <= t; ++i)solve(i);
 }
 

@@ -48,9 +48,7 @@ struct Mint {
 		return *this;
 	}
 	friend Mint pow(Mint a, long long p) {
-		if(p >= phi_mod_val || p < 0)phi_mod.reduce(p);
-		p -= (p >= phi_mod_val) * phi_mod_val;
-		p += (p < 0) * phi_mod_val;
+		p = phi_mod.reduce(p);
 		Mint ret = 1;
 		while(p) {
 			if(p & 1)ret *= a;
